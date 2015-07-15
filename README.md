@@ -3,8 +3,6 @@ Leafet.js Tutorial
 
 ## Acquainting Ben Franklin to Modern Day Philadelphia
 
-------
-
 "Great Scott," proclaims Doc. Brown. "I have been able to bring Benjamin Franklin into the future but
 I need your help. Can you create a map that shows Ben today's cool Philadelphia sites?"
 
