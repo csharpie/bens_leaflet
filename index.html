@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+	<link rel="stylesheet" href="css/style.css">
+	
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+</head>
+<body>
+	<div id="map"></div>
+
+	<script type="text/javascript">
+		var hoagieIcon = L.icon({
+			iconUrl: 'img/hoagie.svg',
+			iconSize: [38, 95]
+		});
+		
+		var stadiumIcon = L.icon({
+			iconUrl: 'img/stadium.svg',
+			iconSize: [38, 95]
+		});
+		
+		//Cheesesteakeries
+		var cheesesteakeries = [{name: "Sonny's", lat: 39.949802,  long: -75.144807
+			}, {
+				name: "Pat's King of Steaks", lat: 39.933178,  long: -75.159274 
+			}, {
+				name: "Geno's Steaks", lat: 39.933722,  long: -75.158891 
+			}, {
+				name: "Tony Luke's", lat: 39.914117,  long: -75.148836
+			}, {
+				name: "Tony Luke's", lat: 39.906500,  long: -75.166640
+			}, {
+				name: "Jim's Steaks", lat: 39.941492, long: -75.149274
+			}];
+		
+		for (var i = 0; i < cheesesteakeries.length; i++) {
+			cheesesteakeries[i] = L.marker([cheesesteakeries[i].lat, cheesesteakeries[i].long], {icon: hoagieIcon}).bindPopup('<strong>' + cheesesteakeries[i].name + '</strong>');
+		}
+		
+		var cheesesteakeriesLayerGroup = L.layerGroup(cheesesteakeries);
+		
+		//Stadiums
+		var stadiums = [{name: "Wells Fargo Center", lat: 39.901121,  long: -75.171727
+			}, {
+				name: "Lincoln Financial Field", lat: 39.900732,  long: -75.167535
+			}, {
+				name: "Citizens Bank Park", lat: 39.905993,  long: -75.166640 
+			}];
+		
+		for (var i = 0; i < stadiums.length; i++) {
+			stadiums[i] = L.marker([stadiums[i].lat, stadiums[i].long], {icon: stadiumIcon}).bindPopup('<strong>' + stadiums[i].name + '</strong>');
+		}
+		
+		var stadiumsLayerGroup = L.layerGroup(stadiums);
+		
+		var grayscaleLayerGroup = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+		    maxZoom: 18
+		});
+		
+		
+		var map = L.map('map', {
+			center: [39.9522, -75.1639],
+			zoom: 15,
+			layers: [grayscaleLayerGroup, cheesesteakeriesLayerGroup, stadiumsLayerGroup]
+		});
+		
+		var baseMaps = {
+			"Grayscale": grayscaleLayerGroup,
+		};
+		
+		var overlayMaps = {
+			"Cheesesteakeries": cheesesteakeriesLayerGroup,
+			"Stadiums": stadiumsLayerGroup
+		};
+		
+		L.control.layers(baseMaps, overlayMaps).addTo(map);
+	</script>
+</body>
+</html>
